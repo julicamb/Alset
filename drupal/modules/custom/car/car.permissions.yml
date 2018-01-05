@@ -1,0 +1,19 @@
+add model entities:
+  title: 'Create new Model entities'
+
+administer model entities:
+  title: 'Administer Model entities'
+  description: 'Allow to access the administration form to configure Model entities.'
+  restrict access: true
+
+delete model entities:
+  title: 'Delete Model entities'
+
+edit model entities:
+  title: 'Edit Model entities'
+
+view published model entities:
+  title: 'View published Model entities'
+
+view unpublished model entities:
+  title: 'View unpublished Model entities'

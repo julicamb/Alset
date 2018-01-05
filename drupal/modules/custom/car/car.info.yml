@@ -1,0 +1,5 @@
+name: car
+type: module
+description: Car module
+core: 8.x
+package: Custom

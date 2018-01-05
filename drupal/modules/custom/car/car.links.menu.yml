@@ -1,0 +1,14 @@
+
+# Model menu items definition
+entity.model.collection:
+  title: 'Model list'
+  route_name: entity.model.collection
+  description: 'List Model entities'
+  parent: system.admin_structure
+  weight: 100
+
+model.admin.structure.settings:
+  title: Model settings
+  description: 'Configure Model entities'
+  route_name: model.settings
+  parent: system.admin_structure

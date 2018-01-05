@@ -1,0 +1,14 @@
+{
+  "name": "drupal/car",
+  "type": "drupal-module",
+  "description": "Car module",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/car",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/car",
+    "source": "http://cgit.drupalcode.org/car"
+  },
+  "require": { }
+}
