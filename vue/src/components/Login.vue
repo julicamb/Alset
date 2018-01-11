@@ -47,7 +47,7 @@ export default {
           console.log(window.ActiveUser)
         }
         console.log(window.ActiveUser.current_user.name + ' is now logged in')
-        this.$router.push({name: 'UserDetails'})
+        this.$router.push({name: 'Home'})
       }).catch(error => {
         console.error(error)
       })

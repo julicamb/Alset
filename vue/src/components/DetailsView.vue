@@ -198,6 +198,7 @@ img {
     font-family: 'Raleway-ExtraLight';
     font-weight: 200;
     font-size: 16px;
+    border-radius: 0;
 }
 map {
   width:100%;
