@@ -5,6 +5,8 @@ import Models from '@/components/Models'
 import Cars from '@/components/Cars'
 import DetailsView from '@/components/DetailsView'
 import Stations from '@/components/Stations'
+import Login from '@/components/Login'
+import UserDetails from '@/components/UserDetails'
 
 Vue.use(Router)
 
@@ -34,6 +36,16 @@ export default new Router({
       path: '/stations',
       name: 'Stations',
       component: Stations
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/userdetails',
+      name: 'UserDetails',
+      component: UserDetails
     }
   ]
 })

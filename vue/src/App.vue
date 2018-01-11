@@ -8,8 +8,11 @@
 
 <script>
 window.APIurl = 'http://cmsdev.localhost:8080'
+window.ActiveUser = null
 export default {
-  name: 'app'
+  name: 'app',
+  mounted () {
+  }
 }
 </script>
 <style>
@@ -20,6 +23,8 @@ export default {
   font-size: 20px;
   letter-spacing: 5px;
   padding-left: 5px;
+  margin: 0;
+  padding: 15px 0;
 }
 #app {
   text-align: center;
