@@ -3,7 +3,7 @@
     <h1 class="homeLogo">Alset</h1>
     <button class="button1" @click="GoToPage('Models')">Find a Car</button><br>
     <button class="button2">My account</button><br>
-    <button class="button2">Charging stations</button>
+    <button class="button2" @click="GoToPage('Stations')">Charging stations</button>
   </div>
     
 </template>

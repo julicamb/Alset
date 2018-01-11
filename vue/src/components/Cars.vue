@@ -1,6 +1,6 @@
 <template>
   <div class="search">
-    <h1 class="logo">Alset</h1>
+    <h1 class="logo" @click="GoToPage('Home')">Alset</h1>
     <h3 class="subtitle">Choose a car</h3>
     <router-link v-for="car in results"  :key="car.nid.value" :to="{ name: 'DetailsView', params: { id: car.nid[0].value }}">
   <div class="card" :id="car.nid.value">
@@ -33,6 +33,11 @@ export default {
     }, error => {
       console.error(error)
     })
+  },
+  methods: {
+    GoToPage (page) {
+      this.$router.push({name: page})
+    }
   }
 }
 </script>

@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import Models from '@/components/Models'
 import Cars from '@/components/Cars'
 import DetailsView from '@/components/DetailsView'
+import Stations from '@/components/Stations'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/detailsview',
       name: 'DetailsView',
       component: DetailsView
+    },
+    {
+      path: '/stations',
+      name: 'Stations',
+      component: Stations
     }
   ]
 })

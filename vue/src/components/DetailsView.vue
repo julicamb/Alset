@@ -1,6 +1,6 @@
 <template>
   <div class="search">
-    <h1 class="logo">Alset</h1>
+    <h1 class="logo" @click="GoToPage('Home')">Alset</h1>
     <h3 class="subtitle">{{car.title[0].value}}</h3>
       <img :src="car.field_image[0].url">
       <button class="tabButton" @click="tab = true">Info</button>
@@ -136,6 +136,11 @@ export default {
   },
   components: {
     Map
+  },
+  methods: {
+    GoToPage (page) {
+      this.$router.push({name: page})
+    }
   }
 }
 </script>
