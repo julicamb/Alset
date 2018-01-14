@@ -2,9 +2,12 @@
   <div class="search">
     <h1 class="logo" @click="GoToPage('Home')">Alset</h1>
     <h3 class="subtitle">{{car.title[0].value}}</h3>
-      <img :src="car.field_image[0].url">
-      <button class="tabButton" @click="tab = true">Info</button>
-      <button class="tabButton" @click="tab = false">specs</button>
+      <img class="carImage" :src="car.field_image[0].url">
+      <router-link :to="{ name: 'Reservation', params: { id: car.nid[0].value }}">
+      <button class="resButton">Reserve this car</button>
+    </router-link>
+      <button class="tabButton" @click="tab = true">Informations</button>
+      <button class="tabButton" @click="tab = false">Specifications</button>
       <div v-if="tab==false">
       <div class="specs">
         <h2>Year:</h2>
@@ -64,6 +67,10 @@
         <h2>Ratings:</h2>
         <h3>{{car.field_rating[0].value}}</h3>
       </div>
+
+      <router-link :to="{ name: 'Profile', params: { id: user.uid[0].value }}">      
+          <button class="resButton whithy" >{{user.name[0].value}}'s Profile</button>
+    </router-link>
       <gmap-map
     :center="center"
     :zoom="10"
@@ -97,7 +104,7 @@ export default {
     return {
       car: [],
       APIurl: window.APIurl,
-      tab: false,
+      tab: true,
       user: [],
       center: {lat: 10.0, lng: 10.0},
       markers: [{
@@ -112,7 +119,6 @@ export default {
       this.car = result.data[0]
       axios({
         method: 'GET',
-        headers: {'Authorization': 'Basic Y21zZGV2LXVzZXI6Y21zZGV2LXBhc3M='},
         url: window.APIurl + '/user/' + this.car.field_owner[0].target_id + '?_format=json'
       }).then(result => {
         this.user = result.data
@@ -145,7 +151,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .subtitle {
     font-family: 'Raleway-ExtraLight';
     font-weight: 200;
@@ -156,7 +162,7 @@ export default {
 .smallText {
     font-size: 10px;
 }
-img {
+.carImage {
  width: 100vw;
  margin: 0;
 }
@@ -170,7 +176,7 @@ img {
   font-family: 'Raleway-ExtraLight';
   font-weight: 200;
   font-size: 14px;
-  width: 48%;
+  width: 30%;
   text-align: right;
   float: left;
   margin: 0;
@@ -181,11 +187,11 @@ img {
   font-family: 'Raleway-ExtraLight';
   font-weight: 200;
   font-size: 14px;
-  width: 48%;
+  width: 66%;
   float: right;
-  text-align: left;
   margin: 0;
   padding: 10px 0 10px 5px;
+  text-align: center;
 }
 .tabButton {
     background: rgba(255, 255, 255, 0.17);
@@ -199,6 +205,23 @@ img {
     font-weight: 200;
     font-size: 16px;
     border-radius: 0;
+}
+.resButton {
+    background: rgba(46, 204, 113, 0.5);
+    border: solid 1px white;
+    height: 40px;
+    width: 98%;
+    margin: 0;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: white;
+    font-family: 'Raleway-ExtraLight';
+    font-weight: 200;
+    font-size: 16px;
+    border-radius: 0;
+}
+.whithy {
+    background: rgba(255, 255, 255, 0.2);
 }
 map {
   width:100%;

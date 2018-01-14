@@ -7,7 +7,7 @@
       <img :src="car.field_image[0].url">
       <h2>{{car.title[0].value}}</h2>
       <h3>{{car.field_range[0].value}}km range<br>{{car.field_seats[0].value}} seats</h3>
-      <h2 class="price"><strong>€{{car.field_price_per_day[0].value}}</strong> <span class="smallText">per day</span></h2>
+      <h4 class="price"><strong>€{{car.field_price_per_day[0].value}}</strong> <span class="smallText">per day</span></h4>
   </div>
     </router-link>
   </div>
@@ -41,13 +41,13 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .subtitle {
     font-family: 'Raleway-ExtraLight';
     font-weight: 200;
     font-size: 25px;
     color: white;
-    margin-top: 100px;
+    margin-top: 20px;
 }
 .card {
     background: rgba(255, 255, 255, 0.17);
@@ -58,6 +58,8 @@ export default {
 .card > img {
     float: left;
     height: 90px;
+    width: 150px;
+    object-fit: cover;
     margin-top: 7px;
     margin-left: 20px;
 }
@@ -66,7 +68,17 @@ a > .card > h2 {
     font-family: 'Raleway';
     font-weight: 200;
     letter-spacing: 2px;
-    float: right;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 7px;
+    margin-bottom: 30px;
+}
+a > .card > h4 {
+    color: white;
+    font-family: 'Raleway';
+    font-weight: 200;
+    letter-spacing: 2px;
+    text-align: right;
     margin-right: 20px;
     font-size: 18px;
     margin-top: 7px;

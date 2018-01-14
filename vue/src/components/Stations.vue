@@ -89,7 +89,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .homeLogo {
   color: white;
   font-family: 'ZELDA';

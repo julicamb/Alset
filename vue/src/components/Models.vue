@@ -38,13 +38,13 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .subtitle {
     font-family: 'Raleway-ExtraLight';
     font-weight: 200;
     font-size: 25px;
     color: white;
-    margin-top: 100px;
+    margin-top: 20px;
 }
 .card {
     background: rgba(255, 255, 255, 0.17);

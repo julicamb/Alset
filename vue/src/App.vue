@@ -11,7 +11,10 @@ window.APIurl = 'http://cmsdev.localhost:8080'
 window.ActiveUser = null
 export default {
   name: 'app',
-  mounted () {
+  created () {
+    if (localStorage.getItem('Active-User') !== null) {
+      window.ActiveUser = JSON.parse(localStorage.getItem('Active-User'))
+    }
   }
 }
 </script>
@@ -33,5 +36,15 @@ body {
   height: 100vh;
   background: linear-gradient(rgb(0, 0, 0), rgb(150, 29, 19));
   margin: 0;
+  background-attachment: fixed;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
 }
 </style>

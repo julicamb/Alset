@@ -7,6 +7,9 @@ import DetailsView from '@/components/DetailsView'
 import Stations from '@/components/Stations'
 import Login from '@/components/Login'
 import UserDetails from '@/components/UserDetails'
+import Reservation from '@/components/Reservation'
+import ReservationDetails from '@/components/ReservationDetails'
+import Profile from '@/components/Profile'
 
 Vue.use(Router)
 
@@ -46,6 +49,21 @@ export default new Router({
       path: '/userdetails',
       name: 'UserDetails',
       component: UserDetails
+    },
+    {
+      path: '/reservation',
+      name: 'Reservation',
+      component: Reservation
+    },
+    {
+      path: '/reservationdetails',
+      name: 'ReservationDetails',
+      component: ReservationDetails
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile
     }
   ]
 })

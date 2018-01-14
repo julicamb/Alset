@@ -3,8 +3,8 @@
     <h1 class="logo" @click="GoToPage('Home')">Alset</h1>
     <h3 class="subtitle">Log in to continue</h3>
      <form>
-        <input type='text' id='username' placeholder='Username'>
-        <input type='password' id='password' placeholder='Password'>
+        <input type='text' id='username' v-model="Username" placeholder='Username'>
+        <input type='password' id='password' v-model="Password" placeholder='Password'>
     </form>
     <button class='login' @click="Login()">Log In</button>
   </div>
@@ -19,7 +19,9 @@ export default {
   data () {
     return {
       results: [],
-      APIurl: window.APIurl
+      APIurl: window.APIurl,
+      Username: null,
+      Password: null
     }
   },
   mounted () {
@@ -37,8 +39,8 @@ export default {
         method: 'post',
         url: this.APIurl + '/user/login?_format=json',
         data: {
-          name: 'cmsdev-user',
-          pass: 'cmsdev-pass'
+          name: this.Username,
+          pass: this.Password
         }
       }).then(response => {
         localStorage.setItem('Active-User', JSON.stringify(response.data))
@@ -55,7 +57,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .subtitle {
     font-family: 'Raleway-ExtraLight';
     font-weight: 200;

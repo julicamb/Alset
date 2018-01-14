@@ -5,16 +5,15 @@
     <h3 class="subtitle"></h3>
       <img class="userPicture" :src="User.user_picture[0].url">
       <button class="tabButton" @click="tab = 1">Info</button>
-      <button class="tabButton" @click="tab = 2">Reservations</button>
-      <button class="tabButton" @click="tab = 3">Cars</button>
+      <button class="tabButton" @click="tab = 2">Cars</button>
       <div v-if="tab==1">
       <div class="specs">
         <h2>Email:</h2>
-        <h3>{{ User.mail[0].value }}</h3>
+        <h3>Only visible to customers</h3>
       </div>
       <div class="specs">
         <h2>Address:</h2>
-        <h3>{{ User.field_address[0].value }}</h3>
+        <h3>Only visible to customers</h3>
       </div>
       <div class="specs">
         <h2>City:</h2>
@@ -26,21 +25,10 @@
       </div>
       <div class="specs">
         <h2>Phone:</h2>
-        <h3>{{ User.field_phone_number[0].value }}</h3>
+        <h3>Only visible to customers</h3>
       </div>
       </div>
     <div v-if="tab==2">
-        <router-link v-for="res in Reservations"  :key="res.nid.value" :to="{ name: 'ReservationDetails', params: { id: res.nid[0].value }}">
-  <div class="card">
-      <img :src="res.field_image_url[0].value">
-      <h2><strong>{{res.title[0].value}}</strong></h2>
-      <h3 v-if="res.field_days[0].value === 1">{{res.field_days[0].value}} day<br>{{res.field_start_date[0].value}}</h3>
-      <h3 v-if="res.field_days[0].value !== 1">{{res.field_days[0].value}} days<br>{{res.field_start_date[0].value}}</h3>
-      <h4 class="price"><strong>€{{res.field_price[0].value}}</strong></h4>
-  </div>
-    </router-link>
-    </div>
-    <div v-if="tab==3">
         <router-link v-for="car in Cars"  :key="car.nid.value" :to="{ name: 'DetailsView', params: { id: car.nid[0].value }}">
   <div class="card">
       <img :src="car.field_image[0].url">
@@ -65,7 +53,8 @@ export default {
       User: [],
       tab: 1,
       Cars: [],
-      Reservations: []
+      Reservations: [],
+      UserId: null
     }
   },
   created () {
@@ -79,9 +68,10 @@ export default {
     }
   },
   mounted () {
+    this.userId = this.$route.params.id
     axios({
       method: 'GET',
-      url: window.APIurl + '/user/' + window.ActiveUser.current_user.uid + '?_format=json'
+      url: window.APIurl + '/user/' + this.userId + '?_format=json'
     }).then(result => {
       this.User = result.data
       axios({ method: 'GET', url: window.APIurl + '/cars?field_owner_target_id=' + this.User.uid[0].value }).then(result => {
@@ -115,7 +105,7 @@ export default {
     background: rgba(255, 255, 255, 0.17);
     border: solid 1px white;
     height: 40px;
-    width: 32%;
+    width: 49%;
     margin: 0;
     margin-bottom: 20px;
     color: white;
