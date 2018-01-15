@@ -10,6 +10,8 @@ import UserDetails from '@/components/UserDetails'
 import Reservation from '@/components/Reservation'
 import ReservationDetails from '@/components/ReservationDetails'
 import Profile from '@/components/Profile'
+import CreateCar from '@/components/CreateCar'
+import EditCar from '@/components/EditCar'
 
 Vue.use(Router)
 
@@ -64,6 +66,16 @@ export default new Router({
       path: '/profile',
       name: 'Profile',
       component: Profile
+    },
+    {
+      path: '/createcar',
+      name: 'CreateCar',
+      component: CreateCar
+    },
+    {
+      path: '/editcar',
+      name: 'EditCar',
+      component: EditCar
     }
   ]
 })

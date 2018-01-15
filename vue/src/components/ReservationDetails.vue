@@ -2,7 +2,8 @@
   <div class="search">
     <h1 class="logo" @click="GoToPage('Home')">Alset</h1>
     <h3 class="subtitle">{{reservation.title[0].value}}</h3>
-      <img class="carImage" :src="car.field_image[0].url">
+      <img class="carImage" v-if="car.field_image.length > 0" :src="car.field_image[0].url">
+      <img class="carImage" v-if="car.field_imagestring.length > 0" :src="car.field_imagestring[0].value">
       <button class="tabButton" @click="tab = 1">Info</button>
       <button class="tabButton" @click="tab = 2">Car</button>
       <button class="tabButton" @click="tab = 3">Owner</button>
@@ -24,7 +25,8 @@
       <div class="specs">
         <h2>Start Date:</h2>
         <h3>{{reservation.field_start_date[0].value}}</h3>
-      </div>
+      </div>    
+          <button v-if="!reservation.field_canceled[0].value" class="resButton red" @click="Cancel()" >Cancel</button>
     </div>
       <div v-if="tab==2">
       <div class="specs">
@@ -146,6 +148,35 @@ export default {
   methods: {
     GoToPage (page) {
       this.$router.push({name: page})
+    },
+    Cancel () {
+      this.reservation.field_canceled[0].value = true
+      console.log(this.reservation.field_canceled[0].value)
+      console.log(window.ActiveUser.csrf_token)
+      axios({
+        method: 'PATCH',
+        url: window.APIurl + '/node/' + this.reservationId + '?_format=json',
+        headers: {
+          'X-CSRF-Token': window.ActiveUser.csrf_token,
+          'Content-Type': 'application/json'
+        },
+        data: {
+          'type': [
+            {
+              'target_id': 'reservation'
+            }
+          ],
+          'field_canceled': [
+            {
+              'value': true
+            }
+          ]
+        }
+      }).then(response => {
+        console.log(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
     }
   }
 }
@@ -219,6 +250,9 @@ export default {
     font-weight: 200;
     font-size: 16px;
     border-radius: 0;
+}
+.red {
+  background: rgba(231, 76, 60, 0.8);
 }
 map {
   width:100%;

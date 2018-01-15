@@ -2,9 +2,13 @@
   <div class="search">
     <h1 class="logo" @click="GoToPage('Home')">Alset</h1>
     <h3 class="subtitle">{{car.title[0].value}}</h3>
-      <img class="carImage" :src="car.field_image[0].url">
-      <router-link :to="{ name: 'Reservation', params: { id: car.nid[0].value }}">
+      <img class="carImage" v-if="car.field_image.length > 0" :src="car.field_image[0].url">
+      <img class="carImage" v-if="car.field_imagestring.length > 0" :src="car.field_imagestring[0].value">
+      <router-link v-if="car.field_owner[0].target_id != currentUser.current_user.uid" :to="{ name: 'Reservation', params: { id: car.nid[0].value }}">
       <button class="resButton">Reserve this car</button>
+    </router-link>
+    <router-link v-if="car.field_owner[0].target_id == currentUser.current_user.uid" :to="{ name: 'EditCar', params: { id: car.nid[0].value }}">
+      <button class="resButton">Edit</button>
     </router-link>
       <button class="tabButton" @click="tab = true">Informations</button>
       <button class="tabButton" @click="tab = false">Specifications</button>
@@ -109,10 +113,16 @@ export default {
       center: {lat: 10.0, lng: 10.0},
       markers: [{
         position: {lat: 10.0, lng: 10.0}
-      }]
+      }],
+      currentUser: null
     }
   },
+  created () {
+  },
   mounted () {
+    if (localStorage.getItem('Active-User') !== null) {
+      this.currentUser = JSON.parse(localStorage.getItem('Active-User'))
+    }
     // this.modelId = this.$route.params.id
     this.modelId = this.$route.params.id
     axios({ method: 'GET', url: window.APIurl + '/cars?nid=' + this.modelId }).then(result => {
@@ -130,6 +140,8 @@ export default {
           this.markers[0].position.lng = result.data.results[0].geometry.location.lng
           this.center.lat = result.data.results[0].geometry.location.lat
           this.center.lng = result.data.results[0].geometry.location.lng
+          console.log(this.car.field_owner[0].target_id)
+          console.log(this.currentUser.current_user.uid)
         }, error => {
           console.error(error)
         })

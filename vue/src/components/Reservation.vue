@@ -34,7 +34,8 @@ export default {
       resDays: 1,
       resPrice: null,
       totalPrice: null,
-      resStartDate: moment(new Date()).format('YYYY-MM-DD')
+      resStartDate: moment(new Date()).format('YYYY-MM-DD'),
+      resStartDate2: null
     }
   },
   created () {
@@ -62,28 +63,52 @@ export default {
       if (this.resTitle === null) {
         this.resTitle = moment(new Date(this.resStartDate)).format('L') + ' Reservation'
       }
-      this.resStartDate = moment(this.resStartDate).format()
-      axios({
-        method: 'post',
-        url: this.APIurl + '/node?_format=hal_json',
-        headers: {
-          'X-CSRF-Token': window.ActiveUser.csrf_token
-        },
-        data: {
-          'type': [{ 'target_id': 'reservation' }],
-          'title': [{ 'value': this.resTitle }],
-          'field_car': [{ 'target_id': this.carId }],
-          'field_customer': [{ 'target_id': window.ActiveUser.current_user.uid }],
-          'field_days': [{ 'value': this.resDays }],
-          'field_price': [{ 'value': this.totalPrice }],
-          'field_start_date': [{ 'value': this.resStartDate }],
-          'field_image_url': [{ 'value': this.car.field_image[0].url }]
-        }
-      }).then(result => {
-        this.$router.push({'name': 'Home'})
-      }, error => {
-        console.error(error)
-      })
+      this.resStartDate2 = moment(this.resStartDate).format()
+      if (this.car.field_image.length > 0) {
+        axios({
+          method: 'post',
+          url: this.APIurl + '/node?_format=hal_json',
+          headers: {
+            'X-CSRF-Token': window.ActiveUser.csrf_token
+          },
+          data: {
+            'type': [{ 'target_id': 'reservation' }],
+            'title': [{ 'value': this.resTitle }],
+            'field_car': [{ 'target_id': this.carId }],
+            'field_customer': [{ 'target_id': window.ActiveUser.current_user.uid }],
+            'field_days': [{ 'value': this.resDays }],
+            'field_price': [{ 'value': this.totalPrice }],
+            'field_start_date': [{ 'value': this.resStartDate2 }],
+            'field_image_url': [{ 'value': this.car.field_image[0].url }]
+          }
+        }).then(result => {
+          this.$router.push({'name': 'Home'})
+        }, error => {
+          console.error(error)
+        })
+      } else {
+        axios({
+          method: 'post',
+          url: this.APIurl + '/node?_format=hal_json',
+          headers: {
+            'X-CSRF-Token': window.ActiveUser.csrf_token
+          },
+          data: {
+            'type': [{ 'target_id': 'reservation' }],
+            'title': [{ 'value': this.resTitle }],
+            'field_car': [{ 'target_id': this.carId }],
+            'field_customer': [{ 'target_id': window.ActiveUser.current_user.uid }],
+            'field_days': [{ 'value': this.resDays }],
+            'field_price': [{ 'value': this.totalPrice }],
+            'field_start_date': [{ 'value': this.resStartDate2 }],
+            'field_image_url': [{ 'value': this.car.field_imagestring[0].value }]
+          }
+        }).then(result => {
+          this.$router.push({'name': 'Home'})
+        }, error => {
+          console.error(error)
+        })
+      }
     }
   }
 }

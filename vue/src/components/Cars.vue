@@ -4,7 +4,8 @@
     <h3 class="subtitle">Choose a car</h3>
     <router-link v-for="car in results"  :key="car.nid.value" :to="{ name: 'DetailsView', params: { id: car.nid[0].value }}">
   <div class="card" :id="car.nid.value">
-      <img :src="car.field_image[0].url">
+      <img v-if="car.field_image.length > 0" :src="car.field_image[0].url">
+      <img v-if="car.field_imagestring.length > 0" :src="car.field_imagestring[0].value">
       <h2>{{car.title[0].value}}</h2>
       <h3>{{car.field_range[0].value}}km range<br>{{car.field_seats[0].value}} seats</h3>
       <h4 class="price"><strong>€{{car.field_price_per_day[0].value}}</strong> <span class="smallText">per day</span></h4>

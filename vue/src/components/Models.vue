@@ -26,7 +26,6 @@ export default {
   mounted () {
     axios({ method: 'GET', url: window.APIurl + '/models' }).then(result => {
       this.results = result.data
-      console.log(this.results[0].field_image)
     }, error => {
       console.error(error)
     })

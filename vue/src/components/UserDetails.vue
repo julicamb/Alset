@@ -41,9 +41,11 @@
     </router-link>
     </div>
     <div v-if="tab==3">
+      <button class="resButton" @click="GoToPage('CreateCar')">Add a car</button>
         <router-link v-for="car in Cars"  :key="car.nid.value" :to="{ name: 'DetailsView', params: { id: car.nid[0].value }}">
   <div class="card">
-      <img :src="car.field_image[0].url">
+      <img v-if="car.field_image.length > 0" :src="car.field_image[0].url">
+      <img v-if="car.field_imagestring.length > 0" :src="car.field_imagestring[0].value">
       <h2><strong>{{car.title[0].value}}</strong></h2>
       <h3>{{car.field_range[0].value}}km range<br>{{car.field_seats[0].value}} seats</h3>
       <h4 class="price"><strong>€{{car.field_price_per_day[0].value}}</strong> <span class="smallText">per day</span></h4>
@@ -205,5 +207,19 @@ a > .card > h3 {
   margin: 0;
   padding: 10px 0 10px 5px;
   text-align: center;
+}
+.resButton {
+    background: rgba(46, 204, 113, 0.5);
+    border: solid 1px white;
+    height: 40px;
+    width: 98%;
+    margin: 0;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: white;
+    font-family: 'Raleway-ExtraLight';
+    font-weight: 200;
+    font-size: 16px;
+    border-radius: 0;
 }
 </style>
