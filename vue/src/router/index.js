@@ -12,6 +12,7 @@ import ReservationDetails from '@/components/ReservationDetails'
 import Profile from '@/components/Profile'
 import CreateCar from '@/components/CreateCar'
 import EditCar from '@/components/EditCar'
+import CreateUser from '@/components/CreateUser'
 
 Vue.use(Router)
 
@@ -76,6 +77,11 @@ export default new Router({
       path: '/editcar',
       name: 'EditCar',
       component: EditCar
+    },
+    {
+      path: '/createuser',
+      name: 'CreateUser',
+      component: CreateUser
     }
   ]
 })

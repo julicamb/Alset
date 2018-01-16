@@ -6,7 +6,9 @@
         <input type='text' id='username' v-model="Username" placeholder='Username'>
         <input type='password' id='password' v-model="Password" placeholder='Password'>
     </form>
-    <button class='login' @click="Login()">Log In</button>
+    <button class='login button2' @click="Login()">Log In</button>
+      <h2>Don't have an account yet?</h2>
+    <button class='login' @click="GoToPage('CreateUser')">Register</button>
   </div>
     
 </template>
@@ -21,13 +23,17 @@ export default {
       results: [],
       APIurl: window.APIurl,
       Username: null,
-      Password: null
+      Password: null,
+      CarId: null
     }
   },
   mounted () {
     if (localStorage.getItem('Active-User') !== null) {
       window.ActiveUser = JSON.parse(localStorage.getItem('Active-User'))
       console.log(window.ActiveUser)
+    }
+    if (this.$route.params.id !== null) {
+      this.carId = this.$route.params.id
     }
   },
   methods: {
@@ -49,7 +55,11 @@ export default {
           console.log(window.ActiveUser)
         }
         console.log(window.ActiveUser.current_user.name + ' is now logged in')
-        this.$router.push({name: 'Home'})
+        if (this.carId == null) {
+          this.$router.push({ name: 'Home' })
+        } else {
+          this.$router.push({ name: 'DetailsView', params: { id: this.carId } })
+        }
       }).catch(error => {
         console.error(error)
       })
@@ -89,5 +99,19 @@ button{
   margin-top: 20px;
   padding: 8px 16px;
   color: white;
+}
+.button2{
+  background: rgba(46, 204, 113, 0.2);
+}
+h2 {
+  color: white;
+  font-family: 'Raleway-ExtraLight';
+  font-weight: 200;
+  font-size: 14px;
+  width: 98%;
+  text-align: center;
+  padding-left: 10px;
+  margin-top: 40px;
+  margin-bottom: 0;
 }
 </style>

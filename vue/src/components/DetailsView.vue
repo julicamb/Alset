@@ -4,10 +4,13 @@
     <h3 class="subtitle">{{car.title[0].value}}</h3>
       <img class="carImage" v-if="car.field_image.length > 0" :src="car.field_image[0].url">
       <img class="carImage" v-if="car.field_imagestring.length > 0" :src="car.field_imagestring[0].value">
-      <router-link v-if="car.field_owner[0].target_id != currentUser.current_user.uid" :to="{ name: 'Reservation', params: { id: car.nid[0].value }}">
+      <router-link v-if="currentUser===null" :to="{ name: 'Login', params: { id: car.nid[0].value }}">
+      <button class="resButton">Login to reserve this car</button>
+    </router-link>
+      <router-link v-if="currentUser!==null && car.field_owner[0].target_id != currentUser.current_user.uid " :to="{ name: 'Reservation', params: { id: car.nid[0].value }}">
       <button class="resButton">Reserve this car</button>
     </router-link>
-    <router-link v-if="car.field_owner[0].target_id == currentUser.current_user.uid" :to="{ name: 'EditCar', params: { id: car.nid[0].value }}">
+    <router-link v-if="currentUser!==null && car.field_owner[0].target_id == currentUser.current_user.uid" :to="{ name: 'EditCar', params: { id: car.nid[0].value }}">
       <button class="resButton">Edit</button>
     </router-link>
       <button class="tabButton" @click="tab = true">Informations</button>

@@ -3,7 +3,8 @@
     <h1 class="logo" @click="GoToPage('Home')">Alset</h1>
     <h3 class="subtitle" v-if="User !== null">{{ User.name[0].value }}</h3>
     <h3 class="subtitle"></h3>
-      <img class="userPicture" :src="User.user_picture[0].url">
+      <img class="userPicture" v-if="User.user_picture !== null && User.user_picture.length > 0" :src="User.user_picture[0].url">
+      <img class="userPicture" v-if="User.field_imagestring.length > 0" :src="User.field_imagestring[0].value">
       <button class="tabButton" @click="tab = 1">Info</button>
       <button class="tabButton" @click="tab = 2">Cars</button>
       <div v-if="tab==1">
@@ -31,8 +32,8 @@
     <div v-if="tab==2">
         <router-link v-for="car in Cars"  :key="car.nid.value" :to="{ name: 'DetailsView', params: { id: car.nid[0].value }}">
   <div class="card">
-      <img v-if="car.field_image.length > 0" :src="car.field_image[0].url">
-      <img v-if="car.field_imagestring.length > 0" :src="car.field_imagestring[0].value">
+      <img v-if="car.field_image!==null && car.field_image.length > 0" :src="car.field_image[0].url">
+      <img v-if="car.field_imagestring!==null && car.field_imagestring.length > 0" :src="car.field_imagestring[0].value">
       <h2><strong>{{car.title[0].value}}</strong></h2>
       <h3>{{car.field_range[0].value}}km range<br>{{car.field_seats[0].value}} seats</h3>
       <h4 class="price"><strong>€{{car.field_price_per_day[0].value}}</strong> <span class="smallText">per day</span></h4>
