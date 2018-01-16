@@ -9,29 +9,29 @@
       <button class="tabButton" @click="tab = 2">Reservations</button>
       <button class="tabButton" @click="tab = 3">Cars</button>
       <div v-if="tab==1">
-      <div class="specs">
+      <div class="specs" v-if="User.mail.length > 0">
         <h2>Email:</h2>
         <h3>{{ User.mail[0].value }}</h3>
       </div>
-      <div class="specs">
+      <div class="specs" v-if="User.field_address.length > 0">
         <h2>Address:</h2>
         <h3>{{ User.field_address[0].value }}</h3>
       </div>
-      <div class="specs">
+      <div class="specs" v-if="User.field_city.length > 0">
         <h2>City:</h2>
         <h3>{{ User.field_city[0].value }}</h3>
       </div>
-      <div class="specs">
+      <div class="specs" v-if="User.field_country.length > 0">
         <h2>Country:</h2>
         <h3>{{ User.field_country[0].value }}</h3>
       </div>
-      <div class="specs">
+      <div class="specs" v-if="User.field_phone_number.length > 0">
         <h2>Phone:</h2>
-        <h3>{{ User.field_phone_number[0].value }}</h3>
+        <h3>0{{ User.field_phone_number[0].value }}</h3>
       </div>
       </div>
     <div v-if="tab==2">
-        <router-link v-for="res in Reservations"  :key="res.nid.value" :to="{ name: 'ReservationDetails', params: { id: res.nid[0].value }}">
+        <router-link v-if="Reservations.length > 0" v-for="res in Reservations"  :key="res.nid.value" :to="{ name: 'ReservationDetails', params: { id: res.nid[0].value }}">
   <div class="card">
       <img :src="res.field_image_url[0].value">
       <h2><strong>{{res.title[0].value}}</strong></h2>
@@ -43,7 +43,7 @@
     </div>
     <div v-if="tab==3">
       <button class="resButton" @click="GoToPage('CreateCar')">Add a car</button>
-        <router-link v-for="car in Cars"  :key="car.nid.value" :to="{ name: 'DetailsView', params: { id: car.nid[0].value }}">
+        <router-link v-if="Cars.length > 0" v-for="car in Cars"  :key="car.nid.value" :to="{ name: 'DetailsView', params: { id: car.nid[0].value }}">
   <div class="card">
       <img v-if="car.field_image!==null && car.field_image.length > 0" :src="car.field_image[0].url">
       <img v-if="car.field_imagestring!==null && car.field_imagestring.length > 0" :src="car.field_imagestring[0].value">

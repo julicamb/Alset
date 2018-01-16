@@ -2,6 +2,7 @@
   <div class="search">
     <h1 class="logo" @click="GoToPage('Home')">Alset</h1>
     <h3 class="subtitle">{{car.title[0].value}}</h3>
+        <h2 class="distance">{{ distance }}km away from your current location</h2>
       <img class="carImage" v-if="car.field_image.length > 0" :src="car.field_image[0].url">
       <img class="carImage" v-if="car.field_imagestring.length > 0" :src="car.field_imagestring[0].value">
       <router-link v-if="currentUser===null" :to="{ name: 'Login', params: { id: car.nid[0].value }}">
@@ -117,7 +118,9 @@ export default {
       markers: [{
         position: {lat: 10.0, lng: 10.0}
       }],
-      currentUser: null
+      currentUser: null,
+      currentGeo: {lat: 10.0, lng: 10.0},
+      distance: null
     }
   },
   created () {
@@ -135,6 +138,7 @@ export default {
         url: window.APIurl + '/user/' + this.car.field_owner[0].target_id + '?_format=json'
       }).then(result => {
         this.user = result.data
+        this.getLocation()
         axios({
           method: 'GET',
           url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + this.car.field_city[0].value + '&key=AIzaSyB57L9Tj6zNQzhGmiP9D7SICJjfqRrQMXI'
@@ -143,8 +147,7 @@ export default {
           this.markers[0].position.lng = result.data.results[0].geometry.location.lng
           this.center.lat = result.data.results[0].geometry.location.lat
           this.center.lng = result.data.results[0].geometry.location.lng
-          console.log(this.car.field_owner[0].target_id)
-          console.log(this.currentUser.current_user.uid)
+          this.getDistance(this.center.lat, this.center.lng, this.currentGeo.lat, this.currentGeo.lng)
         }, error => {
           console.error(error)
         })
@@ -161,6 +164,40 @@ export default {
   methods: {
     GoToPage (page) {
       this.$router.push({name: page})
+    },
+    getDistance (lat1, lon1, lat2, lon2) {
+      var R = 6371
+      var dLat = this.deg2rad(lat2 - lat1)
+      var dLon = this.deg2rad(lon2 - lon1)
+      var a =
+      Math.sin(dLat / 2) *
+      Math.sin(dLat / 2) +
+      Math.cos(this.deg2rad(lat1)) *
+      Math.cos(this.deg2rad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2)
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+      var d = R * c
+      d = d.toFixed(0)
+      d = d.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      this.distance = d
+    },
+    deg2rad (deg) {
+      return deg * (Math.PI / 180)
+    },
+    getLocation () {
+      var self = this
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.showPosition)
+      } else {
+        self.Geolocation = false
+        console.log('Geolocation is not supported by this browser.')
+      }
+    },
+    showPosition (position) {
+      console.log(position.coords.latitude + ' ' + position.coords.longitude)
+      this.currentGeo.lat = position.coords.latitude
+      this.currentGeo.lng = position.coords.longitude
     }
   }
 }
@@ -237,6 +274,13 @@ export default {
 }
 .whithy {
     background: rgba(255, 255, 255, 0.2);
+}
+.distance {
+  font-family: 'Raleway-ExtraLight';
+  font-weight:200;
+  color: white;
+  font-size: 17px;
+  text-align: center;
 }
 map {
   width:100%;

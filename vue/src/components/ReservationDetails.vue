@@ -76,7 +76,7 @@
       </div>
       <div class="specs">
         <h2>Phone number:</h2>
-        <h3>{{user.field_phone_number[0].value}}</h3>
+        <h3>0{{user.field_phone_number[0].value}}</h3>
       </div>
       <router-link :to="{ name: 'Profile', params: { id: user.uid[0].value }}">      
           <button class="resButton" >More...</button>
@@ -123,7 +123,7 @@ export default {
           this.user = result.data
           axios({
             method: 'GET',
-            url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + this.car.field_address[0].value + '&key=AIzaSyB57L9Tj6zNQzhGmiP9D7SICJjfqRrQMXI'
+            url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + this.car.field_address[0].value + '+' + this.car.field_city[0].value + '&key=AIzaSyB57L9Tj6zNQzhGmiP9D7SICJjfqRrQMXI'
           }).then(result => {
             this.markers[0].position.lat = result.data.results[0].geometry.location.lat
             this.markers[0].position.lng = result.data.results[0].geometry.location.lng

@@ -23,7 +23,7 @@
         <input type='number' v-model="car.acceleration" placeholder="ex. 2,3">
         <h2>How many doors?</h2>
         <input type='number' v-model="car.doors" placeholder="ex. 5">
-        <h2>WHow many seats?</h2>
+        <h2>How many seats?</h2>
         <input type='number' v-model="car.seats" placeholder="ex. 5">
         <h2>What price do you ask per day? (in €)</h2>
         <input type='number' v-model="car.price" placeholder="ex. 39,99">
@@ -38,7 +38,7 @@
         <h2>Add a picture</h2>
         <input type='file' id="Picture">
     </form>
-    <button @click="Upload()">Reserve</button>
+    <button @click="Upload()">Create</button>
   </div>
 </template>
 
@@ -100,7 +100,7 @@ export default {
       }
     },
     Reserve () {
-      this.car.title = this.car.model + ' ' + this.car.title + ' ' + this.car.year
+      this.car.title = this.car.title + ' ' + this.car.year
       axios({
         method: 'post',
         url: this.APIurl + '/node?_format=hal_json',

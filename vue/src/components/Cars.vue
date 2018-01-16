@@ -24,6 +24,8 @@
     (filterPrice===null || car.field_price_per_day[0].value < filterPrice || filterPrice==='')
     && (filterRange===null || car.field_range[0].value >= filterRange || filterRange==='') 
     && (filterSeats===null || car.field_seats[0].value >= filterSeats || filterSeats==='')
+    && car.field_available[0].value
+    && car.field_owner[0].target_id != UserId
     ">
   <div class="card" :id="car.nid.value">
       <img v-if="car.field_image!==null && car.field_image.length > 0" :src="car.field_image[0].url">
@@ -49,10 +51,15 @@ export default {
       filterVisible: false,
       filterPrice: null,
       filterRange: null,
-      filterSeats: null
+      filterSeats: null,
+      UserId: null
     }
   },
   mounted () {
+    if (localStorage.getItem('Active-User') !== null) {
+      window.ActiveUser = JSON.parse(localStorage.getItem('Active-User'))
+      this.UserId = window.ActiveUser.current_user.uid
+    }
     // this.modelId = this.$route.params.id
     this.modelId = this.$route.params.id
     axios({ method: 'GET', url: window.APIurl + '/cars?field_model_target_id=' + this.modelId }).then(result => {
